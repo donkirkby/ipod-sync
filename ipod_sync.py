@@ -86,10 +86,12 @@ def list_files(rootpath):
             folders[folder] = tracks
             for filename in filenames:
                 fullpath = os.path.join(dirpath, filename)
+                filesize = os.stat(fullpath).st_size
                 try:
                     track = Track(fullpath,
                                   podcast=True)
                     track['album'] = folder
+                    track.filesize = filesize
                     tracks[track['title']] = track
                 except Exception, e:
                     print "Could not load '%s': %s" % (folder + '/' + filename, 
